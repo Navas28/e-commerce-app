@@ -1,50 +1,215 @@
-# Welcome to your Expo app 👋
+# E-Commerce App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A React Native e-commerce application built with Expo SDK 54.
 
-## Get started
+---
 
-1. Install dependencies
+## Screenshots
 
-   ```bash
-   npm install
-   ```
+<!-- Add your screenshots here -->
 
-2. Start the app
+> Create a `screenshots/` folder and add your screen captures there.
 
-   ```bash
-   npx expo start
-   ```
+---
 
-In the output, you'll find options to open the app in a
+## Features
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+### Products Screen
+- Fetches products from [FakeStore API](https://fakestoreapi.com/products)
+- 2-column product grid with cards showing image, title, rating, and price
+- Real-time search bar — filters products by name as you type
+- **5 functional sort options:** Price Low→High, Price High→Low, Rating High→Low, Best Sellers, Newest
+- **2 functional filters:** Category, Price Range (Under $20 / $20–$100 / Above $100)
+- Active indicator dot on Sort and Filter buttons when applied
+- Pull-to-refresh ready (retry on error)
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+### Product Detail Screen
+- Full product view: image, category badge, title, star rating, price, description
+- Add to Bag button (turns grey with checkmark when already added)
+- Heart icon in header to toggle favourite
+- Navigates via Expo Router dynamic route `/product/[id]`
 
-## Get a fresh project
+### Bag Screen
+- Add, remove, increase, and decrease item quantities
+- Remove all items at once
+- Empty state with illustration when bag is empty
+- Grand total calculation
+- Item count and total items in footer
+- Proceed to Pay button (static UI)
+- Bag persists after app close via AsyncStorage
 
-When you're ready, run:
+### Favourites Screen
+- Save any product as a favourite using the heart icon (on cards, detail page)
+- Favourite count badge on the heart icon across all screens
+- Add favourited products directly to bag from the favourites screen
+- Tap any item to view its detail page
+- Empty state when no favourites saved
+- Favourites persist after app close via AsyncStorage
 
-```bash
-npm run reset-project
+### Global UX
+- Global `LoadingSpinner` component used across all loading states
+- Global `EmptyState` component with icon, title, subtitle, and action button
+- Error state with Retry button on the products screen
+- No results state when search or filters return zero products
+- League Spartan font throughout the app
+
+---
+
+## Tech Stack
+
+| Category | Package | Version |
+|----------|---------|---------|
+| Framework | Expo | ~54.0.34 |
+| Language | TypeScript | ~5.9.2 |
+| Navigation | Expo Router | ~6.0.23 |
+| State Management | Redux Toolkit | ^2.12.0 |
+| React Redux | react-redux | ^9.3.0 |
+| Persistence | redux-persist | ^6.0.0 |
+| Storage | @react-native-async-storage/async-storage | 2.2.0 |
+| Font | @expo-google-fonts/league-spartan | ^0.4.2 |
+| Icons | @expo/vector-icons | ^15.0.3 |
+| HTTP | fetch (built-in) | — |
+
+---
+
+## Project Structure
+
+```
+react-app/
+├── app/
+│   ├── _layout.tsx          # Root layout — Provider, PersistGate, Tabs
+│   ├── index.tsx            # Products Screen
+│   ├── bag.tsx              # Bag Screen
+│   ├── favourites.tsx       # Favourites Screen
+│   └── product/
+│       └── [id].tsx         # Product Detail Screen (dynamic route)
+│
+├── components/
+│   ├── ProductCard.tsx      # Grid card with heart toggle + Add to Bag
+│   ├── BagItem.tsx          # Bag list item with quantity controls
+│   ├── SortModal.tsx        # Bottom sheet sort options
+│   ├── FilterModal.tsx      # Two-panel filter modal (category + price range)
+│   ├── EmptyState.tsx       # Global reusable empty/error state
+│   └── LoadingSpinner.tsx   # Global centered loading indicator
+│
+├── redux/
+│   ├── store.ts             # Redux store with redux-persist config
+│   ├── hooks.ts             # Typed useAppDispatch and useAppSelector
+│   ├── types.ts             # Product and BagItem TypeScript interfaces
+│   └── slices/
+│       ├── productsSlice.ts # Fetch, sort, filter logic
+│       ├── bagSlice.ts      # Cart CRUD actions and selectors
+│       └── favouritesSlice.ts # Favourites toggle and selectors
+│
+├── constants/
+│   └── theme.ts             # Colors and font family constants
+│
+├── assets/
+│   └── images/
+│       ├── icon.png         # App icon
+│       ├── adaptive-icon.png# Android adaptive icon
+│       ├── splash-icon.png  # Splash screen
+│       ├── favicon.png      # Web favicon
+│       ├── logo.png         # Header logo
+│       └── bag.png          # Bag empty state illustration
+│
+├── metro.config.js          # Fixes redux-persist Metro bundler compatibility
+└── app.json                 # Expo app configuration
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+---
 
-## Learn more
+## Redux Architecture
 
-To learn more about developing your project with Expo, look at the following resources:
+```
+Store
+├── products  (not persisted)
+│   ├── items[]         — fetched from API
+│   ├── status          — idle | loading | succeeded | failed
+│   ├── sortOption      — price_asc | price_desc | rating_desc | best_sellers | newest
+│   ├── filterCategory  — electronics | jewelery | men's clothing | women's clothing
+│   └── filterPriceRange— under_20 | 20_to_100 | above_100
+│
+├── bag  (persisted)
+│   └── items[]         — BagItem extends Product with quantity
+│
+└── favourites  (persisted)
+    └── items[]         — Product[]
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+**Actions available:**
+- `addToBag`, `removeFromBag`, `increaseQuantity`, `decreaseQuantity`
+- `addToFavourites`, `removeFromFavourites`, `toggleFavourite`
+- `setSortOption`, `setFilterCategory`, `setFilterPriceRange`, `clearFilters`, `clearSort`
+- `fetchProducts` (async thunk)
 
-## Join the community
+---
 
-Join our community of developers creating universal apps.
+## Setup & Run
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+### Prerequisites
+- Node.js 18+
+- Expo Go app installed on your phone ([Android](https://play.google.com/store/apps/details?id=host.exp.exponent) / [iOS](https://apps.apple.com/app/expo-go/id982107779))
+- Make sure your phone and computer are on the same Wi-Fi network
+
+### Installation
+
+```bash
+# Clone the repository
+git clone <your-repo-url>
+cd e-commerce-app/react-app
+
+# Install dependencies
+npm install
+```
+
+### Running the App
+
+```bash
+# Start the development server
+npx expo start
+```
+
+Then scan the QR code with:
+- **Android** — Expo Go app
+- **iPhone** — Camera app
+
+### Run on specific platform
+
+```bash
+# Android emulator
+npx expo start --android
+
+# iOS simulator
+npx expo start --ios
+```
+
+### If you see a redux-persist error on first run
+
+```bash
+# Clear Metro cache and restart
+npx expo start --clear
+```
+
+This is handled by `metro.config.js` — it sets `unstable_enablePackageExports: false` to fix a known compatibility issue between redux-persist and Expo SDK 54's Metro bundler.
+
+---
+
+## API
+
+Products are fetched from the public [FakeStore API](https://fakestoreapi.com):
+
+```
+GET https://fakestoreapi.com/products
+```
+
+No API key required. All sort and filter operations are performed client-side on the fetched data.
+
+---
+
+## Design
+
+- **Font:** League Spartan 400 Regular
+- **Primary color:** `#4342FF`
+- **Text color:** `#29292C`
+- **Background:** `#FFFFFF`
