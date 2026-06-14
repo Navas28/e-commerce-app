@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "react-app",
-    "slug": "react-app",
+    "name": "ShopEasy",
+    "slug": "shopeasy",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",

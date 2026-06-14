@@ -67,7 +67,7 @@ export default function ProductsScreen() {
             style={styles.logoImage}
             resizeMode="contain"
           />
-          <Text style={styles.logoText}>T-shirts</Text>
+          <Text style={styles.logoText}>ShopEasy</Text>
         </View>
 
         <View style={styles.headerRight}>
