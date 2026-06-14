@@ -2,6 +2,7 @@ import {
   View, Text, Image, ScrollView, TouchableOpacity,
   StyleSheet, StatusBar,
 } from 'react-native';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useLocalSearchParams, router } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
@@ -13,6 +14,7 @@ import EmptyState from '../../components/EmptyState';
 export default function ProductDetailScreen() {
   const { id } = useLocalSearchParams();
   const dispatch = useAppDispatch();
+  const insets = useSafeAreaInsets();
 
   const product = useAppSelector(state =>
     state.products.items.find(p => p.id === Number(id))
@@ -25,7 +27,7 @@ export default function ProductDetailScreen() {
 
   if (!product) {
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <View style={styles.header}>
           <TouchableOpacity onPress={() => router.back()} activeOpacity={0.7}>
             <Ionicons name="arrow-back" size={24} color={Colors.text} />
@@ -40,12 +42,12 @@ export default function ProductDetailScreen() {
           buttonLabel="Go Back"
           onPress={() => router.back()}
         />
-      </View>
+      </SafeAreaView>
     );
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor={Colors.white} />
 
       {/* Header */}
@@ -110,7 +112,7 @@ export default function ProductDetailScreen() {
       </ScrollView>
 
       {/* Sticky Add to Bag */}
-      <View style={styles.footer}>
+      <View style={[styles.footer, { paddingBottom: insets.bottom + 16 }]}>
         <TouchableOpacity
           style={[styles.addBtn, isInBag && styles.addBtnAdded]}
           onPress={() => dispatch(addToBag(product))}
@@ -126,7 +128,7 @@ export default function ProductDetailScreen() {
           </Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 

@@ -2,6 +2,7 @@ import {
   View, Text, FlatList, Image, TouchableOpacity,
   StyleSheet, StatusBar,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
@@ -23,7 +24,7 @@ export default function FavouritesScreen() {
     bagItems.some(item => item.id === product.id);
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor={Colors.white} />
 
       {/* Header */}
@@ -91,7 +92,7 @@ export default function FavouritesScreen() {
           )}
         />
       )}
-    </View>
+    </SafeAreaView>
   );
 }
 

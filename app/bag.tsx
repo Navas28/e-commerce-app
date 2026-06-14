@@ -7,6 +7,7 @@ import {
   Image,
   StatusBar,
 } from "react-native";
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
@@ -22,6 +23,7 @@ import BagItem from "../components/BagItem";
 
 export default function BagScreen() {
   const dispatch = useAppDispatch();
+  const insets = useSafeAreaInsets();
   const bagItems = useAppSelector(selectBagItems);
   const bagCount = useAppSelector(selectBagCount);
   const bagTotal = useAppSelector(selectBagTotal);
@@ -30,7 +32,7 @@ export default function BagScreen() {
   const isEmpty = bagItems.length === 0;
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor={Colors.white} />
 
       {/* Header */}
@@ -98,7 +100,7 @@ export default function BagScreen() {
           />
 
           {/* Footer */}
-          <View style={styles.footer}>
+          <View style={[styles.footer, { paddingBottom: insets.bottom + 16 }]}>
             <View style={styles.totalRow}>
               <Text style={styles.totalLabel}>Total Items</Text>
               <Text style={styles.totalValue}>{bagCount} {bagCount === 1 ? 'item' : 'items'}</Text>
@@ -115,7 +117,7 @@ export default function BagScreen() {
           </View>
         </>
       )}
-    </View>
+    </SafeAreaView>
   );
 }
 

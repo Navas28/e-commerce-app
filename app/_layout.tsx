@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Tabs } from 'expo-router';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useFonts, LeagueSpartan_400Regular } from '@expo-google-fonts/league-spartan';
 import * as SplashScreen from 'expo-splash-screen';
 import { store, persistor } from '../redux/store';
@@ -18,6 +19,7 @@ export default function RootLayout() {
   if (!fontsLoaded) return null;
 
   return (
+    <SafeAreaProvider>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <Tabs screenOptions={{ headerShown: false, tabBarStyle: { display: 'none' } }}>
@@ -28,5 +30,6 @@ export default function RootLayout() {
         </Tabs>
       </PersistGate>
     </Provider>
+    </SafeAreaProvider>
   );
 }

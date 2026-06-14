@@ -9,6 +9,7 @@ import {
   StyleSheet,
   StatusBar,
 } from "react-native";
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
@@ -56,7 +57,7 @@ export default function ProductsScreen() {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor={Colors.white} />
 
       {/* Header */}
@@ -208,7 +209,7 @@ export default function ProductsScreen() {
         visible={filterVisible}
         onClose={() => setFilterVisible(false)}
       />
-    </View>
+    </SafeAreaView>
   );
 }
 
