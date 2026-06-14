@@ -6,6 +6,12 @@
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "reactapp",
+    "updates": {
+      "url": "https://u.expo.dev/51a26778-1d04-44f5-a291-ae648cc7e364"
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
