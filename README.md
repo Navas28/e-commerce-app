@@ -187,17 +187,6 @@ npx expo start --android
 npx expo start --ios
 ```
 
-### If you see a redux-persist error on first run
-
-```bash
-# Clear Metro cache and restart
-npx expo start --clear
-```
-
-This is handled by `metro.config.js` — it sets `unstable_enablePackageExports: false` to fix a known compatibility issue between redux-persist and Expo SDK 54's Metro bundler.
-
----
-
 ## API
 
 Products are fetched from the public [FakeStore API](https://fakestoreapi.com):
