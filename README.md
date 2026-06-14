@@ -6,9 +6,12 @@ A React Native e-commerce application built with Expo SDK 54.
 
 ## Screenshots
 
-<!-- Add your screenshots here -->
-
-> Create a `screenshots/` folder and add your screen captures there.
+<img width="717" height="1443" alt="WhatsApp Image 2026-06-14 at 1 26 03 PM (1)" src="https://github.com/user-attachments/assets/8e0a1264-0654-428a-a03c-842e6fa4953a" />
+<img width="717" height="1528" alt="WhatsApp Image 2026-06-14 at 1 26 04 PM" src="https://github.com/user-attachments/assets/c7654f97-e471-4eb1-991a-c86256992444" />
+<img width="717" height="1536" alt="WhatsApp Image 2026-06-14 at 1 26 04 PM (1)" src="https://github.com/user-attachments/assets/d94acf58-a3e9-4f61-bf4a-607634da3bc2" />
+<img width="717" height="1536" alt="WhatsApp Image 2026-06-14 at 1 26 04 PM (2)" src="https://github.com/user-attachments/assets/915dc758-3f89-4878-b821-c5c5de4d78b4" />
+<img width="717" height="1442" alt="WhatsApp Image 2026-06-14 at 1 26 03 PM" src="https://github.com/user-attachments/assets/fc6a462b-e47b-4632-8af7-d65cc2841be4" />
+<img width="717" height="1545" alt="WhatsApp Image 2026-06-14 at 1 26 04 PM (3)" src="https://github.com/user-attachments/assets/90df19df-27c2-4bc6-a669-46f2ce9386b0" />
 
 ---
 
