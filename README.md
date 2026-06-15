@@ -159,7 +159,7 @@ Store
 
 ```bash
 # Clone the repository
-git clone <your-repo-url>
+git clone https://github.com/Navas28/e-commerce-app.git
 cd e-commerce-app/react-app
 
 # Install dependencies

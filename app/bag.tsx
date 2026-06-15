@@ -63,7 +63,7 @@ export default function BagScreen() {
           />
           <Text style={styles.emptyTitle}>Your bag is empty</Text>
           <Text style={styles.emptySubtitle}>
-            Looks like you haven't added anything yet.
+            {"Looks like you haven't added anything yet."}
           </Text>
           <TouchableOpacity
             style={styles.shopBtn}

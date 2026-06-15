@@ -44,6 +44,7 @@ function ProductCard({ product }: Props) {
 
       <View style={styles.info}>
         <Text style={styles.title} numberOfLines={2}>{product.title}</Text>
+        <Text style={styles.description} numberOfLines={2}>{product.description}</Text>
 
         <View style={styles.ratingRow}>
           <Ionicons name="star" size={12} color="#F5A623" />
@@ -114,9 +115,16 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.regular,
     fontSize: 13,
     color: Colors.text,
-    marginBottom: 6,
+    marginBottom: 4,
     lineHeight: 18,
     fontWeight: '600',
+  },
+  description: {
+    fontFamily: FontFamily.regular,
+    fontSize: 11,
+    color: '#777777',
+    marginBottom: 6,
+    lineHeight: 15,
   },
   ratingRow: {
     flexDirection: 'row',
