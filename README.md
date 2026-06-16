@@ -160,7 +160,7 @@ Store
 ```bash
 # Clone the repository
 git clone https://github.com/Navas28/e-commerce-app.git
-cd e-commerce-app/react-app
+cd react-app
 
 # Install dependencies
 npm install
